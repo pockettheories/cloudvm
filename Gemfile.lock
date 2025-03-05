@@ -1,0 +1,16 @@
+GEM
+  remote: http://rubygems.org/
+  specs:
+    bindata (2.5.0)
+    spicy-proton (2.1.15)
+      bindata (~> 2.3)
+
+PLATFORMS
+  arm64-darwin-22
+  ruby
+
+DEPENDENCIES
+  spicy-proton
+
+BUNDLED WITH
+   2.6.3
