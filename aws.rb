@@ -9,13 +9,13 @@ $logger = Logger.new($stdout)
 
 $is_login_ensured = false
 
-def ensure_aws_logged_in(profile=nil)
+def ensure_aws_logged_in  # (profile=nil)
 	if $is_login_ensured == true  # Ensure it happens only once, even if called multiple times
 		return
 	end
 
-	profile_suffix = (profile.nil? ? [] : ['--profile', profile])
-	aws_sts_cmd = ['aws', 'sts', 'get-caller-identity'] + profile_suffix
+	# profile_suffix = (profile.nil? ? [] : ['--profile', profile])
+	aws_sts_cmd = ['aws', 'sts', 'get-caller-identity']  # + profile_suffix
 
 	outtxt, errtxt = Open3.capture3(*aws_sts_cmd)
 
@@ -32,7 +32,7 @@ def ensure_aws_logged_in(profile=nil)
 
 	while errtxt.include? 'Error loading SSO Token' or errtxt.include? 'The SSO session associated with this profile has expired '
 		$logger.info 'No valid SSO token'
-		aws_login_cmd = ['aws', 'sso', 'login'] + profile_suffix
+		aws_login_cmd = ['aws', 'sso', 'login']  # + profile_suffix
 		outtxt, errtxt = Open3.capture3(*aws_login_cmd)
 		if outtxt.include? 'Successfully logged into'
 			$logger.info 'Login complete'
